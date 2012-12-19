@@ -2,7 +2,7 @@ Source: libapache-mod-ssl
 Section: web
 Priority: optional
 Maintainer: Domenico Andreoli <cavok@debian.org>
-Build-Depends: debhelper (>> 3.0.0), libssl-dev (>= 0.9.8-1), openssl, apache, apache-dev (>= 1.3.34-1) 
+Build-Depends: debhelper (>> 3.0.0), libssl-dev (>= 0.9.8-1), openssl, apache, apache-dev (>= 1.3.34-1), libgdbm-dev
 Build-Conflicts: libc6-dev (<< 2.2.5-13)
 Standards-Version: 3.6.2
 
