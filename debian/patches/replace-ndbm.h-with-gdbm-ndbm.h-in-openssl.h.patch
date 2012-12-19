@@ -1,0 +1,13 @@
+Index: libapache-mod-ssl/pkg.sslmod/mod_ssl.h
+===================================================================
+--- libapache-mod-ssl.orig/pkg.sslmod/mod_ssl.h	2012-12-19 14:01:09.704858825 +0100
++++ libapache-mod-ssl/pkg.sslmod/mod_ssl.h	2012-12-19 14:01:52.377442643 +0100
+@@ -350,7 +350,7 @@
+ #define SSL_DBM_FILE_SUFFIX_DIR ".dir"
+ #define SSL_DBM_FILE_SUFFIX_PAG ".pag"
+ #else /* !SSL_USE_SDBM */
+-#include <ndbm.h>
++#include <gdbm-ndbm.h>
+ #define ssl_dbm_open     dbm_open
+ #define ssl_dbm_close    dbm_close
+ #define ssl_dbm_store    dbm_store
