@@ -1,0 +1,372 @@
+libapache-mod-ssl (2.8.31-1byte1+bytesqueeze1) unstable; urgency=low
+
+  * Nieuwe versie, recompile voor squeeze
+
+ -- Allard Hoeve <allard@byte.nl>  Wed,  4 Nov 2009 15:02:53 +0100
+
+libapache-mod-ssl (2.8.25-2) unstable; urgency=low
+
+  * Removed explicit build dependency on libdb4.3-dev, use the one
+    apache-dev pulls (closes: #393482).
+
+ -- Domenico Andreoli <cavok@debian.org>  Fri, 20 Oct 2006 17:09:14 +0200
+
+libapache-mod-ssl (2.8.25-1) unstable; urgency=low
+
+  * New upstream release.
+  * Updated build dependency on libdb4.3-dev. 
+
+ -- Domenico Andreoli <cavok@debian.org>  Mon, 24 Oct 2005 18:06:43 +0200
+
+libapache-mod-ssl (2.8.24-2) unstable; urgency=low
+
+  * Updated build dependency for OpenSSL 0.9.8 transition.
+
+ -- Domenico Andreoli <cavok@debian.org>  Tue, 11 Oct 2005 10:14:08 +0200
+
+libapache-mod-ssl (2.8.24-1) unstable; urgency=low
+
+  * New upstream release:
+    - Fixed a security issue (CAN-2005-2700).
+  * Fixed multiple typos in mod-ssl-makecert and other files (closes: #311833).
+  * Fixed removal errors in find use (closes: #322263).
+
+ -- Domenico Andreoli <cavok@debian.org>  Sat,  3 Sep 2005 16:36:26 +0200
+
+libapache-mod-ssl (2.8.22-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Domenico Andreoli <cavok@debian.org>  Mon,  8 Nov 2004 00:05:59 +0100
+
+libapache-mod-ssl (2.8.20-1) unstable; urgency=medium
+
+  * New upstream release:
+    - fixed session resumption with openssl 0.9.7 (CAN-2004-0885).
+  * Maintainer scripts now use apache-modconf instead of modules-config.
+  * Updated README.Debian about LoadModule issues (closes: #276405).
+
+ -- Domenico Andreoli <cavok@debian.org>  Mon, 18 Oct 2004 11:54:47 +0200
+
+libapache-mod-ssl (2.8.19-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Domenico Andreoli <cavok@debian.org>  Sun, 18 Jul 2004 16:36:51 +0200
+
+libapache-mod-ssl (2.8.18-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Domenico Andreoli <cavok@debian.org>  Thu, 27 May 2004 15:41:03 +0200
+
+libapache-mod-ssl (2.8.17-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Domenico Andreoli <cavok@debian.org>  Wed, 26 May 2004 12:10:31 +0200
+
+libapache-mod-ssl (2.8.16-7) unstable; urgency=low
+
+  * Started to use modules-config from apache-common (thanks fabbione
+    for having suggested it).
+
+ -- Domenico Andreoli <cavok@debian.org>  Sun,  1 Feb 2004 00:09:07 +0100
+
+libapache-mod-ssl (2.8.16-6) unstable; urgency=low
+
+  * Upgraded to libdb4.2.
+
+ -- Domenico Andreoli <cavok@debian.org>  Wed, 28 Jan 2004 20:59:33 +0100
+
+libapache-mod-ssl (2.8.16-5) unstable; urgency=low
+
+  * Fixed segfaults when receiving client certificate (closes: #204524).
+    Patch courtesy of Patrice Fournier.
+
+ -- Domenico Andreoli <cavok@debian.org>  Mon, 26 Jan 2004 01:16:09 +0100
+
+libapache-mod-ssl (2.8.16-4) unstable; urgency=low
+
+  * Fixed some bugs in ssl_scache_dbm_retrieve() (closes: #196004).
+    Patch courtesy of YONETANI Tomokazu.
+  * Configuration files are again installed as examples, as before -2.
+    README.Debian updated to signal also the availability of
+    /etc/apache[-perl]/conf.d/ directory (closes: #227294, #227179).
+
+ -- Domenico Andreoli <cavok@debian.org>  Tue, 20 Jan 2004 01:48:20 +0100
+
+libapache-mod-ssl (2.8.16-2) unstable; urgency=low
+
+  * Got rid of dependency on make (closes: #207599).
+  * Now puts files in conf.d/ to add proper Apache's configuration directives
+    (closes: #211536).
+
+ -- Domenico Andreoli <cavok@debian.org>  Sat, 27 Dec 2003 18:45:49 +0100
+
+libapache-mod-ssl (2.8.16-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Domenico Andreoli <cavok@debian.org>  Wed, 12 Nov 2003 00:21:26 +0100
+
+libapache-mod-ssl (2.8.15-1) unstable; urgency=low
+
+  * New upstream release.
+  * Support directory for certificate's handling is now
+    /usr/share/apache/mod_ssl/
+
+ -- Domenico Andreoli <cavok@debian.org>  Wed, 13 Aug 2003 16:30:04 +0200
+
+libapache-mod-ssl (2.8.14-3) unstable; urgency=low
+
+  * It now uses libdb4.1.
+
+ -- Domenico Andreoli <cavok@debian.org>  Wed, 30 Apr 2003 15:37:14 +0200
+
+libapache-mod-ssl (2.8.14-2) unstable; urgency=low
+
+  * If libapache-mod-ssl is configured by dpkg-reconfigure, postinst
+    calls mod-ssl-makecert (closes: #151682).
+
+ -- Domenico Andreoli <cavok@debian.org>  Tue, 15 Apr 2003 06:26:27 +0200
+
+libapache-mod-ssl (2.8.14-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Domenico Andreoli <cavok@debian.org>  Sat, 22 Mar 2003 16:49:16 +0100
+
+libapache-mod-ssl (2.8.12-2) unstable; urgency=low
+
+  * Reordered libapache-mod-ssl package maintainer scripts. They do
+    not touch httpd.conf anymore, wherever it is (closes: #151687).
+  * Rules to remove hash symlinks in ssl.* directories are now more
+    strict (closes: #168103).
+  * Modified mkcert.sh to signal an error if any of the Snake Oil CA
+    misses. If _all_ the Snake Oil CA files of a given type (RSA or DSA)
+    miss, mod-ssl-makecert will restore them (closes: #150302).
+  * Updated Snake Oil certificates (closes: #152245).
+  * libapache-mod-ssl now suggests ca-certificates.
+  * Switched to debhelper package building suite.
+
+ -- Domenico Andreoli <cavok@debian.org>  Wed,  5 Mar 2003 21:28:55 +0100
+
+libapache-mod-ssl (2.8.12-1) unstable; urgency=low
+
+  * New maintainer.
+  * New upstream release (closes: #150643, #155761, #165941).
+  * Moved to main archive (closes: #142220).
+  * Improved mod-ssl-makecert consistency (closes: #164147).
+  * mod-ssl-makecert now prints a error message if invalid certificate
+    type is entered (closes: #158996).
+  * User manual is registered using doc-base, as required (closes: #132342).
+  * libapache-mod-ssl-doc/README.Debian ceased to suggest a (sometimes)
+    broken place for Listen directives (closes: #147118).
+  * Modified sample configuration files in order to improve readability
+    and usability (closes: #166881).
+
+ -- Domenico Andreoli <cavok@debian.org>  Sat, 22 Feb 2003 15:53:28 +0100
+
+libapache-mod-ssl (2.8.9-2.3) unstable; urgency=high
+
+  * Non-maintainer upload by security team
+  * Applied patch from Joe Orton to fix cross site scripting through
+    hostnames (CAN-2002-1157)
+
+ -- Martin Schulze <joey@infodrom.org>  Tue, 22 Oct 2002 08:00:03 +0200
+
+libapache-mod-ssl (2.8.9-2.2) unstable; urgency=low
+
+  * NMU again.
+  * Fix up Build-Conflicts to allow building with libc6-dev 2.2.5-13.
+    (I incorrectly used the deprecated "<" instead of "<<")
+  * Clean up prerm script.  (Closes: #152483)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Sat, 24 Aug 2002 23:25:54 -0500
+
+libapache-mod-ssl (2.8.9-2.1) unstable; urgency=low
+
+  * NMU.
+  * Rebuild without libdb1.  (Closes: #156583)
+  * Build-Depend on apache-dev (>> 1.3.26).  (Closes: #151074)
+
+ -- Chris Lawrence <lawrencc@debian.org>  Wed, 21 Aug 2002 15:26:03 -0500
+
+libapache-mod-ssl (2.8.9-2) unstable; urgency=high
+
+  * SECURITY: overflow fix in ssl_engine_compat.c (Closes: #150846)
+
+ -- Robert van der Meulen <rvdm@debian.org>  Tue,  2 Jul 2002 14:47:06 +0200
+
+libapache-mod-ssl (2.8.9-1) unstable; urgency=low
+
+  * New upstream release, for apache 1.3.26
+  * Fixed build dependencies (Closes: #137936)
+
+ -- Robert van der Meulen <rvdm@debian.org>  Thu, 20 Jun 2002 21:05:26 +0200
+
+libapache-mod-ssl (2.8.7-1) unstable; urgency=medium
+
+  * New upstream release, for use with apache 1.3.23. (Closes: #133126)
+  * SECURITY: new upstream fixes buffer overflow condition (Closes: #136656)
+  * finally fixed mkcert.sh issue.. (Closes: #118275)
+  * Marked all /etc files as conffiles.
+  * Set execute bits on mod-ssl-makecert.sh to make lintian happy.
+  * [README.Debian] Corrected outdated file locations.
+  * Followed policy checklist and updated Standards-Version.
+
+ -- Robert van der Meulen <rvdm@debian.org>  Mon,  4 Mar 2002 16:37:43 +0100
+
+libapache-mod-ssl (2.8.5-4) unstable; urgency=low
+
+  * Fixed build depends (Closes: #128746)
+  * added mkcert.sh (Closes: #118275)
+
+ -- Robert van der Meulen <rvdm@debian.org>  Tue, 29 Jan 2002 20:13:22 +0100
+
+libapache-mod-ssl (2.8.5-3) unstable; urgency=low
+
+  * Re-added mod-ssl-makecert.sh (Closes: #118275)
+  * Opened up the files in /usr/share/doc/libapache-mod-ssl/examples
+    (Closes: #128292)
+
+ -- Robert van der Meulen <rvdm@debian.org>  Thu, 10 Jan 2002 11:49:31 +0100
+
+libapache-mod-ssl (2.8.5-2) unstable; urgency=low
+
+  * Fixed Dependency problems (Closes: #117178)
+
+ -- Robert van der Meulen <rvdm@debian.org>  Fri, 26 Oct 2001 15:08:29 +0200
+
+libapache-mod-ssl (2.8.5-1) unstable; urgency=low
+
+  * New upstream release
+  * apache 1.3.22 recompile
+  * Removed mkcert.sh script (Closes: #112586)
+
+ -- Robert van der Meulen <rvdm@debian.org>  Wed, 24 Oct 2001 23:25:02 +0200
+
+libapache-mod-ssl (2.8.4-1) unstable; urgency=low
+
+  * New upstream release
+  * patch to new upstream version supplied by Luca Filipozzi
+    <lfilipoz@debian.org>
+
+ -- Robert van der Meulen <rvdm@debian.org>  Fri, 15 Jun 2001 11:04:27 -0700
+
+libapache-mod-ssl (2.8.2-2) unstable; urgency=low
+
+  * Forgot to set the 'new maintainer' field in debian/control.
+  * Tossed libdb2; depending on libdb3 now.
+
+ -- Robert van der Meulen <rvdm@debian.org>  Mon,  4 Jun 2001 15:32:22 +0200
+
+libapache-mod-ssl (2.8.2-1) unstable; urgency=low
+
+  * New maintainer.
+  * 'fixed' documentation to say apache needs to be stopped and started,
+    instead of just 'reloaded'. (Closes: #79793)
+
+ -- Robert van der Meulen <rvdm@debian.org>  Tue, 15 May 2001 21:08:07 +0200
+
+libapache-mod-ssl (2.8.2-0.1) unstable; urgency=low
+
+  * NMU
+  * New upstream release for Apache 1.3.19 (Closes: #92116, #90157)
+  * Add in undocumented link (Closes: #47361)
+  * Fix lintian errors - spelling, /usr/doc, others
+  * Fix dependencies (Closes: #86164)
+  * Fix perms (Closes: #79772)
+  * This was already fixed.  These files are in the examples dir (Closes: #52872)
+  * Default configuration also already proper. (Closes: #78472)
+  * Add in lintian overrides
+  * Updating Standards version
+
+ -- Ivan E. Moore II <rkrusty@debian.org>  Fri, 06 Apr 2001 00:17:38 +0100
+
+libapache-mod-ssl (2.7.1-1.1) unstable; urgency=low
+
+  * NMU
+  * Added build dependencies. (closes: #79648, #81796)
+
+ -- Adrian Bunk <bunk@fs.tum.de>  Sat, 17 Mar 2001 00:17:38 +0100
+
+libapache-mod-ssl (2.7.1-1) unstable; urgency=low
+
+  * Now that we have apache 1.3.14 in unstable, update
+    to mod_ssl-2.7.1-1.3.14
+
+ -- Miquel van Smoorenburg <miquels@cistron.nl>  Mon,  4 Dec 2000 18:04:57 +0100
+
+libapache-mod-ssl (2.6.6-3) unstable; urgency=low
+
+  * Rebuild with latest libraries: libssl096_0.9.6-1 and libc6_2.2-4
+    Hopefully this will fix the crashes some people see.
+
+ -- Miquel van Smoorenburg <miquels@cistron.nl>  Fri,  1 Dec 2000 12:11:42 +0100
+
+libapache-mod-ssl (2.6.6-2) unstable; urgency=low
+
+  * Moved libapache-mod-ssl-doc rules to binary-indep section
+    of rules files so that dpkg-buildpackage -B works. How the
+    autobuilders worked around it, I can only guess...
+
+ -- Miquel van Smoorenburg <miquels@cistron.nl>  Thu, 30 Nov 2000 12:23:17 +0100
+
+libapache-mod-ssl (2.6.6-1) unstable; urgency=low
+
+  * New upstream release (closes: #72573)
+  * Builds against the latest libssl09a (closes: #67063)
+  * Dropped apache version number from package version number, it's
+    too long, and it doesn't add any info anyway (we have Depends:).
+  * Change the way we Depend: on apache (closes: #68735, #69053)
+
+ -- Miquel van Smoorenburg <miquels@cistron.nl>  Tue, 28 Nov 2000 17:13:46 +0100
+
+libapache-mod-ssl (2.4.10-1.3.9-1) unstable; urgency=high
+
+  * New upstream release.
+  * Builds against the latest libssl09 (closes: #46073)
+  * Should fix client certificate problems (closes: #47655)
+  * Should fix crashes (closes: #54550)
+  * Adds sign.sh to examples (closes: #49830)
+  * Move docs to /usr/share/doc
+
+ -- Miquel van Smoorenburg <miquels@cistron.nl>  Wed, 12 Jan 2000 13:27:58 +0100
+
+libapache-mod-ssl (2.4.2-1.3.9-1) unstable; urgency=low
+
+  * New upstream release
+  * Fixes bugs:
+    #43700: SSL connections no longer work with libapache-mod-ssl
+    #44047: libapache-mod-ssl: new apache was released
+    #41203: error loading shared libraries: /usr/lib/apache/ca-fix: undefined s
+    #43528: libapache-mod-ssl: Cannot load /usr/lib/apache/1.3/mod_ssl.so
+    #43735: libapache-mod-ssl needs to be built against new openssl
+
+ -- Miquel van Smoorenburg <miquels@cistron.nl>  Sun, 12 Sep 1999 12:28:29 +0200
+
+libapache-mod-ssl (2.3.11-1.3.6-1) unstable; urgency=low
+
+  * New upstream release
+  * Removes the need for ca-fix.
+  * Fixes bugs:
+    #41647: libapache-mod-ssl's postinst requires make
+    #41744: mod-ssl-makecert fails due to ca-fix problem
+    #41745: mkcert.sh writes to /usr/lib/apache
+    #42924: libapache-mod-ssl_2.2.8-1.3.6-1(unstable): seems doesn't compile
+
+ -- Miquel van Smoorenburg <miquels@cistron.nl>  Mon, 16 Aug 1999 12:29:16 +0200
+
+libapache-mod-ssl (2.2.8-1.3.6-1) unstable; urgency=low
+
+  * Fixed minor bits, cleared up ca-fix copyright, uploaded to pandora.
+
+ -- Miquel van Smoorenburg <miquels@cistron.nl>  Wed, 12 May 1999 14:18:47 +0200
+
+libapache-mod-ssl (2.2.8-1.3.6-0) unstable; urgency=low
+
+  * Merged with same package from Tommi Virtanen  <tv@debian.org>
+
+ -- Miquel van Smoorenburg <miquels@cistron.nl>  Wed, 12 May 1999 14:18:08 +0200

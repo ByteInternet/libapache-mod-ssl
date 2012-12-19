@@ -1,0 +1,106 @@
+HOW TO CONFIGURE APACHE FOR MOD_SSL
+-----------------------------------
+
+0. ABOUT THIS README
+
+   Copyright (C) 1999-2002 Miquel van Smoorenburg <miquels@cistron.nl>
+   Copyright (C) 2003-2004 Domenico Andreoli <cavok@debian.org>
+
+   We wrote this for Debian GNU/Linux. You, do whatever you want with it.
+   We do not provide any warranty.
+
+1. INTRODUCTION
+
+   Installing mod_ssl alone is not enough to get it working. This
+   module adds a lot of new directives to Apache and it's very hard to
+   write a configuration utility that would enable or disable the SSL
+   functionality automatically.
+
+   So, here's a description how to configure mod_ssl the old-fashioned
+   way: manually.
+
+2. CERTIFICATES
+
+   First, you need to have a certificate for your server. A lot of
+   general info about this can be found in the mod_ssl documentation.
+   If you installed libapache-mod-ssl-doc package it is available at:
+
+      http://localhost/doc/libapache-mod-ssl-doc/html/
+
+   Documentation is also available online:
+
+      http://www.modssl.org/docs/2.8/
+
+   To create a test certificate, you can enter the command (as root):
+
+      # dpkg-reconfigure libapache-mod-ssl
+
+   This will ask you a few questions, and then create a private key,
+   a certificate and a certificate-request in /etc/apache/ssl.*/server.*
+
+3. ADDING GLOBAL OPTIONS
+
+   In order to use ssl directives you need apache to load the
+   mod_ssl. Use the following command to anable it:
+
+      # apache-modconf apache enable mod_ssl
+
+   Now you should edit httpd.conf. Go to a place at the
+   end of the configuration, just before the <VirtualHost>
+   sections, and insert the configuration fragment from
+   /usr/share/doc/libapache-mod-ssl-doc/examples/mod-ssl.conf. This is
+   the global configuration for mod_ssl.
+
+   As alternative you can copy template configuration file
+   /usr/share/doc/libapache-mod-ssl/examples/mod-ssl.conf to
+   /etc/apache[-perl]/conf.d/mod_ssl-00-global.conf
+
+   If you are also interested in module setenvif, use the following
+   command to enable it:
+
+      # apache-modconf apache enable setenvif
+
+   Please read apache-modconf's manpage to learn more about apache
+   modules managing in Debian.
+
+4. ADDING PER-VHOST OPTIONS
+
+   There are a lot of options that can be set for each virtual host.
+   You need to add a _new_ virtualhost for each virtualhost you want
+   to enable SSL on. It should be named as <VirtualHost host.ip:443>,
+   and be a copy of the normal VirtualHost, with the SSL options added.
+
+   If you have not a virtual host but just one default server, you
+   should call this new virtualhost <VirtualHost _default_:443>.
+
+   Note that name-based virtual hosting does _not_ work with SSL enabled
+   vhosts, you need to have a separate IP alias for each SSL vhost.
+
+   Normally, you'd just use the following options:
+
+     <IfModule mod_ssl.c>
+        <VirtualHost new.vhost.ip:443>
+           # ... standard directives such as DocumentRoot, Logfile ...
+
+           SSLEngine on
+
+           SSLCertificateFile    /etc/apache/ssl.crt/server.crt
+           SSLCertificateKeyFile /etc/apache/ssl.key/server.key
+
+           SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
+        </VirtualHost>
+     </IfModule>
+
+   For all possible options, see the mod_ssl manual. There is a fully commented
+   vhost example in /usr/share/doc/libapache-mod-ssl-doc/examples/vhost.conf
+
+   As alternative you can copy template configuration file
+   /usr/share/doc/libapache-mod-ssl/examples/vhost.conf to
+   /etc/apache[-perl]/conf.d/mod_ssl-01-vhost.conf
+
+5. RESTART APACHE
+
+   Restart apache with /etc/init.d/apache restart.  Using
+   /etc/init.d/apache reload will NOT work!  If everything went
+   well, you should be able to connect to your HTTPS enabled host at
+   https://your.web.server/.

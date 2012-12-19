@@ -1,0 +1,16 @@
+#! /bin/sh
+
+apa=/etc/apache
+
+umask 022
+
+if [ "$1" = "purge" ]; then
+	# remove subdirs in /etc/apache if empty
+	for ext in crl crt csr key prm; do
+		if [ -d "$apa/ssl.$ext" ]; then
+			rmdir "$apa/ssl.$ext" 2>/dev/null || true
+		fi
+	done
+fi
+
+#DEBHELPER#

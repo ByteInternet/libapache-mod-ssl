@@ -1,0 +1,30 @@
+#! /bin/sh
+
+sslcrtdir=/etc/apache/ssl.crt
+supportdir=/usr/share/apache/mod_ssl
+
+umask 022
+
+# we do not want to bother the user with useless questions at install time
+if [ "$1" = "reconfigure" ] || [ "${DEBCONF_RECONFIGURE}" = "1" ]; then
+	mod-ssl-makecert
+fi  
+
+if [ "$1" = "configure" ] || [ "$1" = "reconfigure" ] || [ "${DEBCONF_RECONFIGURE}" = "1" ]; then
+	if [ -d ${sslcrtdir} ]; then
+		cd ${sslcrtdir}
+		. ${supportdir}/functions.sh
+		modssl_update_hashes
+	fi
+fi
+
+if [ "$1" = "configure" ]; then
+	# apache-ssl does not need us as DSO
+	for i in apache apache-perl; do
+		if [ -e "/etc/$i/httpd.conf" ]; then
+			apache-modconf "$i" enable mod_ssl
+		fi
+	done
+fi
+
+#DEBHELPER#

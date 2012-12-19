@@ -1,0 +1,110 @@
+#! /bin/sh
+
+apa=/etc/apache
+support=/usr/share/apache/mod_ssl
+
+makecert()
+{
+	echo "What type of certificate do you want to create?"
+	echo
+	echo "  1. dummy     (dummy self-signed Snake Oil cert)"
+	echo "  2. test      (test cert signed by Snake Oil CA)"
+	echo "  3. custom    (custom cert signed by own CA)"
+	echo "  4. existing  (existing cert)"
+	echo
+	echo
+	echo "Use  dummy     when you are a vendor package maintainer,"
+	echo "     test      when you are an admin but want to do tests only,"
+	echo "     custom    when you are an admin willing to run a real server"
+	echo "     existing  when you are an admin who upgrades a server."
+	echo
+	echo "Normally you would choose 2."
+	echo
+	echo -n "your choice: "
+	TYPE=""
+	while read ans; do
+		case "$ans" in
+			1) TYPE=dummy ;;
+			2) TYPE=test ;;
+			3) TYPE=custom ;;
+			4) TYPE=existing ;;
+		esac
+		[ "$TYPE" ] && break || echo "your choice is not valid, please enter a number"
+		echo -n "> "
+	done
+
+	echo "Which algorithm should be used to generate required key(s)?"
+	echo
+	echo "  1. RSA"
+	echo "  2. DSA"
+	echo
+	echo "Normally you would choose 1."
+	echo
+	echo -n "your choice: "
+	ALGO=""
+	while read ans; do
+		case "$ans" in
+			1) ALGO=RSA ;;
+			2) ALGO=DSA ;;
+		esac
+		[ "${ALGO}" ] && break || echo "your choice is not valid, please enter a number"
+		echo -n "> "
+	done
+	${support}/mkcert.sh make "" openssl ${support} ${TYPE} ${ALGO} "" "" "" ${apa}
+	rm -rf .mkcert.serial
+}
+
+overwrite()
+{
+	seen=
+	for i in crt csr key prm; do
+		mkdir -p $apa/ssl.$i
+		[ ! -f $apa/ssl.$i/$1.$i ] && continue
+		echo "$apa/ssl.$i/$1.$i: already present"
+		seen=yes
+	done
+	[ ! "$seen" ] && return 0
+
+	echo
+	if [ "$1" = server ]; then
+		line=""
+	else
+		line="for $1"
+	fi
+
+	echo -n "Do you really want to overwrite the existing "
+	echo -n "certificate $line? [y/N]: "
+	read ans
+	case "$ans" in
+		y*|Y*)
+			ret=0
+			;;
+		*)
+			ret=1
+			echo
+			;;
+	esac
+
+	return $ret
+}
+
+askwhere()
+{
+	echo
+	echo "Enter the name for this certificate. The files will get"
+	echo "stored as $apa/ssl.{crt,csr,key}/server.{crt,csr,key}."
+	echo "The default is \"server\"".
+	echo
+	done=
+	while [ ! "$done" ]; do
+		echo -n "certificate name [server]> "
+		read name
+		[ "$name" = "" ] && name=server
+		echo
+		overwrite $name && break
+	done
+}
+
+#askwhere
+overwrite server || exit 1
+makecert

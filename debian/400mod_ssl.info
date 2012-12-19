@@ -1,0 +1,22 @@
+LoadModule: ssl_module /usr/lib/apache/1.3/mod_ssl.so
+Directives:
+ SSLPassPhraseDialog
+ SSLMutex
+ SSLRandomSeed
+ SSLSessionCache
+ SSLSessionCacheTimeout
+ SSLEngine
+ SSLProtocol
+ SSLCipherSuite
+ SSLCertificateFile
+ SSLCertificateKeyFile
+ SSLCACertificatePath
+ SSLCACertificateFile
+ SSLVerifyClient
+ SSLVerifyDepth
+ SSLLog
+ SSLLogLevel
+ SSLOptions
+ SSLRequireSSL
+ SSLRequire
+Description: Strong cryptography with SSL

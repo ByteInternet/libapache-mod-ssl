@@ -1,0 +1,120 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+# This is the debhelper compatibility version to use.
+export DH_COMPAT=3
+
+pkg:=libapache-mod-ssl
+pkg_doc:=libapache-mod-ssl-doc
+pkg_dir:=$(shell pwd)/debian/${pkg}
+pkg_doc_dir:=$(shell pwd)/debian/${pkg_doc}
+
+sslcrldir:=/etc/apache/ssl.crl
+sslcrtdir:=/etc/apache/ssl.crt
+sslcsrdir:=/etc/apache/ssl.csr
+sslkeydir:=/etc/apache/ssl.key
+sslprmdir:=/etc/apache/ssl.prm
+supportdir:=/usr/share/apache/mod_ssl
+ssldocumentrootdir:=/var/www-ssl
+
+build: build-stamp
+
+configure-stamp: DH_OPTIONS=
+configure-stamp:
+	dh_testdir
+	./configure --with-ssl=SYSTEM --with-apxs=/usr/bin/apxs
+	touch configure-stamp
+
+build-stamp: DH_OPTIONS=
+build-stamp: configure-stamp
+	dh_testdir
+	${MAKE}
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	-${MAKE} distclean
+	dh_clean config.status build-stamp configure-stamp
+
+install: DH_OPTIONS=
+install: build-stamp
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+	install -m 644 debian/400mod_ssl.info ${pkg_dir}/usr/lib/apache/1.3
+	install -m 644 pkg.sslmod/libssl.so ${pkg_dir}/usr/lib/apache/1.3/mod_ssl.so
+	install -m 644 pkg.sslcfg/README.CRL ${pkg_dir}${sslcrldir}/README
+	install -m 644 pkg.sslcfg/README.CRT ${pkg_dir}${sslcrtdir}/README
+	install -m 644 pkg.sslcfg/README.CSR ${pkg_dir}${sslcsrdir}/README
+	install -m 644 pkg.sslcfg/README.KEY ${pkg_dir}${sslkeydir}/README
+	install -m 644 pkg.sslcfg/README.PRM ${pkg_dir}${sslprmdir}/README
+	install -m 644 pkg.sslcfg/snakeoil-*.key ${pkg_dir}${sslkeydir}
+	install -m 644 pkg.sslcfg/snakeoil-*.crt ${pkg_dir}${sslcrtdir}
+	install -m 644 pkg.sslcfg/snakeoil-*.prm ${pkg_dir}${sslprmdir}
+	install -m 644 pkg.sslcfg/snakeoil-*.key ${pkg_dir}${supportdir}
+	install -m 644 pkg.sslcfg/snakeoil-*.crt ${pkg_dir}${supportdir}
+	install -m 644 pkg.sslcfg/snakeoil-*.prm ${pkg_dir}${supportdir}
+	install -m 644 pkg.sslcfg/ca-bundle.crt ${pkg_dir}${sslcrtdir}
+	install -m 755 pkg.sslsup/mkcert.sh ${pkg_dir}${supportdir}
+	install -m 755 debian/functions.sh ${pkg_dir}${supportdir}
+	install -m 755 debian/mod-ssl-makecert ${pkg_dir}/usr/sbin
+
+# Build architecture-independent files here.
+binary-indep: DH_OPTIONS=-i
+binary-indep: build-stamp install
+	dh_testdir
+	dh_testroot
+
+	dh_installdocs NEWS CREDITS README README.*
+	cat LICENSE >> ${pkg_doc_dir}/usr/share/doc/${pkg_doc}/copyright
+	install -m 644 pkg.ssldoc/*.html ${pkg_doc_dir}/usr/share/doc/${pkg_doc}/html
+	install -m 644 pkg.ssldoc/*.gif ${pkg_doc_dir}/usr/share/doc/${pkg_doc}/html
+	install -m 644 pkg.ssldoc/*.jpg ${pkg_doc_dir}/usr/share/doc/${pkg_doc}/html
+
+	dh_installman
+	dh_installexamples
+	dh_installchangelogs CHANGES
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+# Build architecture-dependent files here.
+binary-arch: DH_OPTIONS=-a
+binary-arch: build-stamp install
+	dh_testdir
+	dh_testroot
+
+	dh_installexamples pkg.contrib/*
+	rm -f ${pkg_dir}/usr/share/doc/${pkg}/examples/README
+	rm -f ${pkg_dir}/usr/share/doc/${pkg}/examples/sxnet.tar
+	rm -f ${pkg_dir}/usr/share/doc/${pkg}/examples/truerand.c
+	egrep -v '(truerand.c|sxnet.tar)' pkg.contrib/README > ${pkg_dir}/usr/share/doc/${pkg}/examples/README.contrib
+
+	dh_installdocs NEWS CREDITS README
+	cat LICENSE >> ${pkg_dir}/usr/share/doc/${pkg}/copyright
+
+	dh_installman debian/mod-ssl-makecert.8
+	dh_installchangelogs CHANGES
+	dh_installexamples -plibapache-mod-ssl debian/mod-ssl.conf debian/vhost.conf
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+
+.PHONY: binary binary-arch binary-indep build clean install

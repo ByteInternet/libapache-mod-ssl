@@ -1,0 +1,25 @@
+#! /bin/sh
+
+sslcrtdir=/etc/apache/ssl.crt
+supportdir=/usr/share/apache/mod_ssl
+
+umask 022
+
+if [ "$1" = "upgrade" ] || [ "$1" = "remove" ]; then
+	if [ -d ${sslcrtdir} ]; then
+		cd ${sslcrtdir}
+		. ${supportdir}/functions.sh
+		modssl_clean_hashes
+	fi
+fi
+
+if [ "$1" = "remove" ]; then
+	# there is no need to remove the entries for apache-ssl
+	for i in apache apache-perl; do
+		if [ -e "/etc/$i/httpd.conf" ]; then
+			apache-modconf "$i" disable mod_ssl quiet
+		fi
+	done
+fi
+
+#DEBHELPER#

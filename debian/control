@@ -1,0 +1,54 @@
+Source: libapache-mod-ssl
+Section: web
+Priority: optional
+Maintainer: Domenico Andreoli <cavok@debian.org>
+Build-Depends: debhelper (>> 3.0.0), libssl-dev (>= 0.9.8-1), openssl, apache, apache-dev (>= 1.3.34-1) 
+Build-Conflicts: libc6-dev (<< 2.2.5-13)
+Standards-Version: 3.6.2
+
+Package: libapache-mod-ssl
+Section: web
+Architecture: any
+Suggests: ca-certificates, libapache-mod-ssl-doc, apache | apache-perl
+Depends: ${shlibs:Depends}, openssl, apache-common (>= 1.3.34-1)
+Description: Strong cryptography (HTTPS support) for Apache
+ This Apache module provides strong cryptography for the Apache 1.3 webserver
+ via the Secure Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS
+ v1) protocols.
+ .
+   o  Open-Source software (BSD-style license)
+   o  Usable for both commercial and non-commercial use
+   o  Available for both Unix and Win32 platforms
+   o  128-bit strong cryptography world-wide
+   o  Support for SSLv2, SSLv3 and TLSv1 protocols
+   o  Clean reviewable ANSI C source code 
+   o  Clean Apache module architecture
+   o  Integrates seamlessly into Apache through an Extended API (EAPI)
+   o  Full Dynamic Shared Object (DSO) support
+   o  Support for the OpenSSL+RSAref US-situation
+   o  Advanced pass-phrase handling for private keys
+   o  X.509 certificate based authentication for both client and server
+   o  Support for per-URL renegotiation of SSL handshake parameters
+   o  Support for explicit seeding of the PRNG from external sources
+   o  Additional boolean-expression based access control facility
+   o  Backward compatibility to other Apache SSL solutions
+   o  Inter-process SSL session cache
+   o  Powerful dedicated SSL engine logging facility
+   o  Simple and robust application to Apache source trees
+   o  Fully integrated into the Apache 1.3 configuration mechanism
+   o  Additional integration into the Apache Autoconf-style Interface (APACI)
+   o  Assistance in X.509 v3 certificate generation
+ .
+ Homepage: http://www.modssl.org
+
+Package: libapache-mod-ssl-doc
+Section: doc
+Architecture: all
+Suggests: libapache-mod-ssl
+Description: Documentation for Apache module mod_ssl
+ This package contains the documentation of mod_ssl,
+ an Apache module that provides strong cryptography for the Apache 1.3
+ webserver via the Secure Sockets Layer (SSL v2/v3) and Transport
+ Layer Security (TLS v1) protocols.
+ .
+ Homepage: http://www.modssl.org

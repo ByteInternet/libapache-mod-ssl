@@ -1,0 +1,9 @@
+Document: libapache-mod-ssl-doc
+Title: mod_ssl User Manual
+Author: Ralf S. Engelschall
+Abstract: The Apache Interface to OpenSSL
+Section: Apps/Net
+
+Format: HTML
+Index: /usr/share/doc/libapache-mod-ssl-doc/html/index.html
+Files: /usr/share/doc/libapache-mod-ssl-doc/html/*.html
