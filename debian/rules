@@ -6,9 +6,6 @@
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
-# This is the debhelper compatibility version to use.
-export DH_COMPAT=3
-
 pkg:=libapache-mod-ssl
 pkg_doc:=libapache-mod-ssl-doc
 pkg_dir:=$(shell pwd)/debian/${pkg}
