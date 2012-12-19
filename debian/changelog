@@ -1,3 +1,9 @@
+libapache-mod-ssl (2.8.31-3) unstable; urgency=low
+
+  * Build against libdb4
+
+ -- Allard Hoeve <allard@byte.nl>  Wed, 19 Dec 2012 15:12:25 +0100
+
 libapache-mod-ssl (2.8.31-2) unstable; urgency=low
 
   * [36f34cb] Fix debhelper compatibility level
